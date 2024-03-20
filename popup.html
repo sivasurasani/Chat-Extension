@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #chatContainer {
+            max-width: 400px;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        #chatMessages {
+            max-height: 300px;
+            overflow-y: scroll;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #messageInput {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 10px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        #sendMessageBtn {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            box-sizing: border-box;
+        }
+        #sendMessageBtn:hover {
+            background-color: #45a049;
+        }
+        #apiResponse {
+            padding: 20px;
+            box-sizing: border-box;
+            border-top: 1px solid #ccc;
+        }
+    </style>
+    <title>Chat Window</title>
+</head>
+<body>
+    <div id="chatContainer">
+        <div id="chatMessages"></div>
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button id="sendMessageBtn">Send</button>
+        <!-- New HTML element to display the API response -->
+        <div id="apiResponse">hello</div>
+    </div>
+    <script nonce="your_generated_nonce">
+        document.getElementById("sendMessageBtn").addEventListener("click", () => {
+            sendMessage();
+        });
+
+        async function sendMessage() {
+            var messageInput = document.getElementById("messageInput");
+            var message = messageInput.value.trim();
+            console.log("hi");
+            alert('hi');
+            if (message !== "") {
+                try {
+                    // Make an API request
+                    const response = await fetch('YOUR_API_ENDPOINT', {
+                        method: 'POST',  // or 'GET' depending on your API
+                        headers: {
+                            'Content-Type': 'application/json',
+                            // Add any additional headers if needed
+                        },
+                        body: JSON.stringify({ message: message }),
+                    });
+
+                    if (response.ok) {
+                        const responseData = await response.json();
+                        // Handle the API response here
+                        displayApiResponse(responseData);
+
+                        // Additional handling if needed
+                        console.log(responseData);
+                    } else {
+                        // Handle errors here
+                        console.error('API request failed:', response.status, response.statusText);
+                    }
+                } catch (error) {
+                    // Handle network or other errors here
+                    console.error('Error:', error);
+                }
+
+                // Append the new message to the chatMessages container
+                var chatMessages = document.getElementById("chatMessages");
+                chatMessages.innerHTML += `<div>${message}</div>`;
+
+                // Clear the input field
+                messageInput.value = "";
+            }
+        }
+
+        function displayApiResponse(responseData) {
+            // Display the API response in the designated element
+            var apiResponseElement = document.getElementById("apiResponse");
+            apiResponseElement.innerHTML = `<div>Answer: ${responseData.answer}</div>`;
+        }
+    </script>
+</body>
+</html>

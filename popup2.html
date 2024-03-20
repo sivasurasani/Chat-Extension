@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        #chatContainer {
+            max-width: 400px;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        #chatMessages {
+            flex: 1;
+            max-height: 300px;
+            overflow-y: scroll;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #messageInput {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 10px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        #sendMessageBtn {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            box-sizing: border-box;
+        }
+        #sendMessageBtn:hover {
+            background-color: #45a049;
+        }
+        #apiResponse {
+            padding: 20px;
+            box-sizing: border-box;
+            border-top: 1px solid #ccc;
+        }
+        #sendMessageBtn.loading {
+            background-color: #109849;
+            cursor: not-allowed;
+        }
+    </style>
+    <title>Chatbot</title>
+</head>
+<body>
+    <div id="chatContainer">
+        <div id="chatMessages"></div>
+        <div id="apiResponse"></div>
+        <input type="text" id="messageInput" placeholder="Ask me something...">
+        <button id="sendMessageBtn">Send</button>
+    </div>
+    <script src="external_script.js"></script>
+</body>
+</html>
